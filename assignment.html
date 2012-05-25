@@ -1,0 +1,357 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang=en lang=en>
+<HEAD>
+	<meta http-equiv=content-type content="text/html; charset=utf-8" />
+	<link rel=stylesheet href="main.css" type="text/css" />
+<title>Project 3: Java to PostScript</title>
+</HEAD>
+<BODY>
+
+<h1>Project 3: JPS, A Java To PostScript Translator</h1>
+
+<div style="font-weight: bold">6.005 Elements of Software Construction<br>
+Spring 2008<br>
+Due: Thursday, March 20 and Thursday, March 27</div>
+</center>
+
+<h1><a name="problem">Problem</a></h1>
+
+<p>PostScript is
+a programming language designed primarily for describing the layout of
+printed pages. A PostScript program (stored as text files with the
+extension <tt>.ps</tt>) is interpreted by a viewer (such as <a
+href="http://pages.cs.wisc.edu/~ghost/">Ghostview</a>).
+ Interpreting a program results in a set of strokes drawn on the page
+(either on your screen, or on real paper in the printer). PostScript
+programs can also be translated into other popular page layout formats
+such as PDF and Word. For a brief history of PostScript, see <a
+href="http://en.wikipedia.org/wiki/PostScript">this wikipedia
+article.</a> If you're interested in learning the difference between
+PostScript and PDF, Adobe published <a
+href="http://www.adobe.com/print/features/psvspdf/">an article</a> on
+the subject.
+
+<p>In this project, you will implement a Java library that we will
+call <b>JPS,</b> short for "<b>J</b>ava to <b>P</b>ost<b>S</b>cript."
+JPS will allow its user to specify drawings at a high level of
+abstraction, and output the drawings as PostScript. JPS consists of:
+
+<ul>
+  <li><p><b>A shape language</b> that allows basic shapes such as squares, circles, and polygons to be
+  defined, rotated and scaled versions, and aggregate shapes, for example a vertical "stack".
+  </p>
+
+  <li><p><b>A shapes-to-PostScript translator</b> that takes as
+  input a drawing specified using JPS's shape language and produces a
+  PostScript file from it.</p>
+
+</ul>
+
+<h1><a name="purpose">Purpose</a></h1>
+
+<p>The purpose of this project is to help you develop your understanding
+of programming with immutable datatypes, and viewing a datatype (or collection
+of datatypes) as a kind of language. In designing and implementing the transformations
+on the PostScript commands, you'll get practice using the design patterns that we've been
+teaching, such as <i>Visitor</i> and <i>Interpreter</i>.
+</p>
+
+<h1><a name="specification">Specification</a></h1>
+
+<h3>Shape language</h3>
+
+<p>The JPS shape language relies on the following fundamental notions:
+<ul>
+
+<li><p> <b>Bounding box.</b> Every shape has a <i>bounding box</i>:
+an imaginary rectangle that encloses the shape. <i>Bounding
+boxes are not drawn.</i>
+The <i>height</i> (<i>width</i>) of a shape is the height (width) of its
+bounding box. Bounding boxes are shown below using dotted lines.</p>
+
+<li><p> <b>Current point.</b> The <i>current point</i> represents the
+coordinates of the current location of the cursor. In PostScript,
+these coordinates are given by the command <tt>currentpoint</tt>.  A
+shape is drawn so that its bounding box is <i>centered</i> around
+the current point. The center of an bounding box is shown below as
+a small black circle.</p>
+
+<li><p> <b>Units.</b> Postscript's basic unit of measurement is 1/72 of an inch.
+When referring to lengths below (e.g. radius, width or height), we are assuming this
+measurement system. For example, if a shape has a height of 36, that means 36 units, which is
+36/72 = 1/2 inch.
+</p>
+
+</ul>
+
+<p>JPS is based on a language of immutable shapes, that are either basic or compound.
+
+<h4>Basic shapes</h4>
+
+  <p>Basic shapes are primitive shapes that can be
+  created without reference to any other shapes.</p>
+
+  <ol>
+
+    <li><p><b>Circle(double radius)</b>. Creates a circle with the given radius.
+    The height and width of a circle are both 2*radius.</p>
+    
+    <p><center><img src="assignment_files/circle.gif"></center></p>
+
+    <li><p><b>Polygon(int  numSides, double sideLength)</b>.
+    Creates a regular polygon with the given number of sides, each of the given length,
+    oriented so that its lowermost side is
+	horizontal.</p>
+    
+    <p><center><img src="assignment_files/polygons.gif"></center></p>
+
+    <li><p><b>Rectangle(double width, double height).</b> Creates a rectangle
+    of the given width and height.</p>
+    
+        <p><center><img src="assignment_files/rectangle.gif"></center></p>
+        
+    <li><p><b>Spacer(double width, double height)</b>. Like a
+    rectangle, but without drawn borders. A spacer is not visible on
+    the page.
+
+    <li><p><b>Square(double sideLength).</b> Equivalent to Polygon(4, sideLength).
+    
+    <li><p><b>Triangle(double sideLength).</b> Equivalent to Polygon(3, sideLength).
+    
+
+  </ol>
+
+<h4>Compound shapes</h4>
+
+  <p>Compound shapes are shapes that are constructed from one or more other shapes, which
+  may themselves be basic or compound.</p>
+
+  <ul>
+
+    <li><p><b>Rotated(Shape shape, RotationAngle rotationAngle).</b> Takes a
+    shape and a rotation angle, which is either 90, 180 or 270 degrees.
+    Creates a version of the shape that is rotated counterclockwise by the
+    specified number of degrees around the origin of its bounding box. If
+    the rotation angle is 90 or 270 degrees, the height (width) of the resulting
+    shape is equal to the width (height) of the original shape.
+
+    <li><p><b>Scaled(Shape shape, double fx, double fy).</b> Takes a shape,
+    a horizontal scaling factor fx, and a vertical scaling factor fy.
+    Creates a version of the shape that is scaled horizontally and vertically
+    by the given scaling factors.
+    
+            <p><center><img src="assignment_files/scaled.gif"></center></p>
+    
+
+    <li><p><b>Layered(Shape... shapes).</b> Given a collection of shapes,
+    creates a new shape consisting of all the shapes drawn with their
+    bounding boxes centered around the current point. The height and width
+    of a layered shape is the maximum of the heights and widths of the component shapes.
+    
+    <p><center><img src="assignment_files/layer.gif"></center></p>
+    
+    <li><p><b>Vertical(Shape... shapes).</b> Takes an ordered collection
+    of shapes, and creates a shape structured as follows:
+    
+	<ul>
+	   <li> Shape shapes[i+1]'s bounding box
+	        is located directly above the bounding box of shapes[i],
+	        and both bounding boxes are vertically aligned around
+	        their center.
+	   <li> The height of the resulting shape's bounding box
+	        is the sum of the heights of the component shapes.
+	   <li> The width of the resulting shape's bounding box
+	        is the maximum width of the widths of the component shapes.
+	</ul>
+    
+    
+    <p><center><img src="assignment_files/stack.gif"></center></p>
+    
+      <li><p><b>Horizontal(Shape... shapes).</b> Takes an ordered collection
+    of shapes, and creates a shape structured as follows:
+	
+	<ul>
+	   <li> Shape shapes[i+1]'s bounding box
+	        is located next to (to the right of) the bounding box of shapes[i],
+	        and both bounding boxes are horizontally aligned around
+	        their center.
+	   <li> The width of the resulting shape's bounding box
+	        is the sum of the widths of the component shapes.
+	   <li> The height of the resulting shape's bounding box
+	        is the maximum width of the heights of the component shapes.
+	</ul>
+    
+  </ul>
+
+<h3>JPS to PostScript translator</h3>
+
+<p>JPS lets the user translate any shape into a sequence of PostScript
+commands. The user can specify the name of the resulting
+file. The resulting file is a legal PostScript file that can be
+previewed on screen or printed on paper.</p>
+
+<h1><a name="tasks">Tasks</a></h1>
+
+<p>
+  All your code in this project should use <b>immutable</b> datatypes. You will need use some mutable
+  types from the Java library for writing output to files, but should avoid mutation everywhere else.
+
+<ol>
+
+<li><b>Prepare.</b> Complete <a href="lab.html">the lab.</a>
+
+<li><b>Design the shape language</b>, expressing it as a collection of
+recursive datatype definitions.
+
+<li><b> Design your JPS</b>, expressing your ideas using a class outline, a
+module dependency diagram, and any additional explanatory text that
+you feel is necessary. Explain the advantages and disadvantages of
+your design by comparing it to at least one alternative, fleshing out
+the alternative (with a class outline and MDD) to the extent
+necessary to make your points clear and easily understood.
+<li> <b> Extend. </b> Design two or more nice shapes of your own and generate PostScript from them. You'll probably want to write some
+classes that build on the shape language. For example, you might implement a class <tt>Skylines</tt> that contains methods
+returning
+   	  randomized skylines with the number/height/shape of buildings specified as
+   	  input arguments to the methods. Or you might implement a class <tt>Fractals</tt>
+   	  that creates some fractal figures with a recursion limit specified by the user.
+   	  These are just examples; it's entirely up to you. A prize will be awarded for the best shape.
+    </ul>
+<li><b>Implement your design of JPS.</b>  
+
+<li><b>Test.</b> Design and implement a test strategy for this project. In addition to the JUnit test cases themselves, you should give
+a brief commentary explaining your strategy.
+
+
+<li><b> Demonstrate. </b> At your grading meeting, present your JPS to your TA. The presentation must include: (1) an overview and justification of the design choices, (2) a walk-through of the JPS, and (3) a demo of the postscript files.	 
+
+
+<li> <b> Reflect.</b> Write a brief commentary saying what you learned from this experience. What was easy? What was hard? What was unexpected? Briefly evaluate your solution, pointing out its key merits and deficiencies. Was your design flexible and modular enough to allow easy inclusion of more features? How could you make it more flexible? Critique the specification of the shape language. Is the language
+     expressive enough to create interesting drawings? Are the shape abstractions
+     well-designed, or not? Do they make certain drawings easy/difficult to create?
+     If you were to design the shape language from scratch, what
+     would you do differently?
+<li> <b>Comment</b> on your collaboration in your LNB, as outline in the LNB
+guide online (<a href = "http://stellar.mit.edu/S/course/6/sp08/6.005/courseMaterial/topics/topic1/resource/noname/noname">here</a>)
+</ol>
+
+<p>
+
+<h1><a name="infrastructure">Infrastructure</a></h1>
+
+<h3>Package postscript.commands</h3>
+
+The package <tt>postscript.commands</tt> in the Eclipse project includes a set of
+classes that represent PostScript commands. These classes have very
+little functionality in them -- they are little more than wrappers
+that allow you to create commands and print out their string representation.
+You may use these classes if you want to help generate a PostScript file.
+The classes may contain more commands than you will use, or you may need
+to add new commands not included.
+
+<h1><a name="deliverables">Deliverables and Grading</a></h1>
+
+There are two deadlines for this project.
+
+On March 20, you will hand in a design document that includes:
+<ol>
+<li> Your shape language. 
+<li> Your design analysis 
+</ol>  
+You should both commit your design documents to your pair repository and put a hard copy in the LNB box for your section by 5PM on Thrusday.
+<p>
+On March 27 you need to hand in:
+<ol>
+
+  <li>  Your implementation
+  <li> Your test suite
+   <li> Your design extensions
+   <li> Your reflections
+   <li> Your (individual) LNB comments 
+</ol> 
+<p>
+You should both commit your documents  and code to your pair repository and put a hard copy in the LNB box for your section by 5PM on Thursday.
+
+
+
+<p>90% of your grade will be allotted to the design and implementation, and 10% to the example shapes you created. 
+Of the 90%, 30% will be allotted to the design of your recursive types and your design critique, 40% to the code 
+(half for structure and half for correctness), and 20% to the testing strategy and test cases.</p>
+
+<h1><a name="hints">Hints</a></h1>
+
+<ol>
+
+<li>The standard way to structure an implementation of a language is to have a collection of classes
+for representing the syntactic objects of the language (in this case, the shapes), and some visitors
+that perform transformations with these objects. For JPS, these visitors might compute the width and 
+height of a shape, and convert a shape into a PostScript program.
+
+<li>The "..." syntax in the compound shape definitions above is Java's
+<a href="http://java.sun.com/j2se/1.5.0/docs/guide/language/varargs.html">vararg</a> construct.
+Other Java constructs that you are likely to find useful in this project are 
+<a href="http://java.sun.com/j2se/1.5.0/docs/guide/language/enums.html">enumerations</a> and
+<a href="http://java.sun.com/j2se/1.5/pdf/generics-tutorial.pdf">generic types</a>.
+
+<li> When implementing a visitor that generates a PostScript program, we found it useful to (1) assume, on
+entry to each visiting method, that the point around which the shape is to be centered
+has already been correctly set; and (2) for basic shapes, to draw the shape by starting
+a new path, drawing, closing the path, and calling stroke; and (3) for some visitor methods,
+to use <tt>gsave</tt> on entry and <tt>grestore</tt> before exit. These are only suggestions, however, and
+you might find a different (and maybe better) approach.
+
+<li><p>The width and height of the bounding box for Polygon(n, e) is given by the following formulas:
+
+		<ul>
+			<li> Case 1: n is odd.<p>
+			<font face="Times">
+			height = e(1+cos(&#960/n))/(2sin(&#960/n))<br>width = (e sin(&#960(n-1)/2n))/(sin(&#960/n)) 
+			</font>
+			<p>
+			<li>Case 2: n is divisible by 4.<p>
+			<font face="Times">
+			height = e(cos(&#960/n))/(sin(&#960/n))<br>width = (e cos(&#960/n))/(sin(&#960/n)) 
+			</font>
+			<p>
+			<li>Case 3: n is divisible by 2, but not by 4.<p>
+			<font face="Times">
+			height = e(cos(&#960/n))/(sin(&#960/n))<br>width = e/(sin(&#960/n)) 
+			</font>
+			<p>
+		</ul>
+
+</p>
+
+<li>In PostScript, use <tt>showpage</tt> to finally draw the current page and create a new page.
+
+</p>
+
+</ol>
+
+<h1><a name="why">Why JPS?</a></h1>
+
+PostScript includes commands for drawing lines and arcs,
+rotation, scaling, and abstraction via function definition. Why not
+just create a library of PostScript definitions that a user can import
+and call directly in PostScript? The answer to this question has two
+parts. First, a library like JPS would come in very handy as a part of
+a word processing or drawing editor written in Java. The developers of
+such an editor could use JPS to implement an "export as PostScript"
+functionality in the editor. Second, JPS's design separates the
+shape language from its translation to PostScript, and this
+separation would make it easily extendable so that it could produce drawings in
+other target formats, different from PostScript.
+
+<h1><a name="refs">References</a></h1>
+
+<ul>
+  <li><a href="http://www.tailrecursive.org/postscript/postscript.html">A First Guide to PostScript</a>
+  <li><a href="http://www-cdf.fnal.gov/offline/PostScript/PLRM2.pdf">PostScript reference manual</a>
+  <li><a href="http://www.adobe.com/products/postscript/">Adobe's PostScript home page</a>
+  <li><a href="http://en.wikipedia.org/wiki/PostScript">Wikipedia entry: PostScript</a>
+  <li><a href="http://pages.cs.wisc.edu/~ghost/">GhostView, a PostScript viewer</a>
+  <li><a href="http://www.adobe.com/print/features/psvspdf/">PostScript vs. PDF, an article by Adobe</a>
+</ul>
+
+</body>
+</html>
