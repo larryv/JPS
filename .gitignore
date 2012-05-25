@@ -1,0 +1,9 @@
+# Build products
+*bin/
+/*.jar
+
+# Javadoc
+api/
+
+# JUnit test output
+TEST-*.txt
