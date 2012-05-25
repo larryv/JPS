@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<project name="JPS" default="jar">
+
+    <property name="src" location="src" />
+    <property name="dest" location="bin" />
+    <property name="lib" location="lib" />
+    <property name="jar" location="jps.jar" />
+
+    <property name="test.src" location="test_src" />
+    <property name="test.bin" location="test_bin" />
+
+    <property name="docdest" location="api" />
+    <property name="java.api"
+              value="http://docs.oracle.com/javase/6/docs/api/" />
+    <property name="junit.api"
+              value="http://kentbeck.github.com/junit/javadoc/4.10/" />
+    <property name="taglet.path" value="${lib}/javadoc6170.jar" />
+
+
+    <!-- Compile -->
+
+    <target name="build" depends="clean">
+        <mkdir dir="${dest}" />
+        <javac srcdir="${src}" destdir="${dest}" source="1.5"
+               fork="true" includeAntRuntime="false">
+            <classpath>
+                <fileset dir="${lib}" includes="*.jar" />
+            </classpath>
+        </javac>
+    </target>
+
+
+    <!-- Package -->
+
+    <target name="jar" depends="clean-jar, build">
+        <jar destfile="${jar}" update="false" duplicate="fail">
+            <fileset dir="${dest}" includes="**/*.class" />
+            <zipfileset src="${lib}/commons-lang3-3.1.jar"
+                        includes="**/*.class" />
+        </jar>
+    </target>
+
+
+    <!-- Tests -->
+
+    <macrodef name="run-tests">
+        <element name="javac-classpath" />
+        <element name="junit-classpath" />
+        <sequential>
+            <mkdir dir="${test.bin}" />
+            <javac srcdir="${test.src}" destdir="${test.bin}"
+                   source="1.5" fork="true" includeAntRuntime="false">
+                <classpath>
+                    <javac-classpath />
+                </classpath>
+            </javac>
+            <junit fork="yes" printsummary="true">
+                <classpath>
+                    <junit-classpath />
+                </classpath>
+                <formatter type="plain" />
+                <test name="jpstests.JPSTests" />
+            </junit>
+        </sequential>
+    </macrodef>
+
+    <extension-point name="test-all" depends="test" />
+
+    <target name="test" depends="build">
+        <run-tests>
+            <javac-classpath>
+                <dirset dir="${dest}" />
+                <fileset dir="${lib}" includes="*.jar" />
+            </javac-classpath>
+            <junit-classpath>
+                <dirset dir="${test.bin}" />
+                <dirset dir="${dest}" />
+                <fileset dir="${lib}" includes="*.jar" />
+            </junit-classpath>
+        </run-tests>
+    </target>
+
+    <target name="test-jar" depends="jar" extensionOf="test-all">
+        <run-tests>
+            <javac-classpath>
+                <fileset file="${jar}" />
+                <fileset dir="${lib}" includes="junit*.jar" />
+            </javac-classpath>
+            <junit-classpath>
+                <dirset dir="${test.bin}" />
+                <fileset file="${jar}" />
+                <fileset dir="${lib}" includes="junit*.jar" />
+            </junit-classpath>
+        </run-tests>
+    </target>
+
+
+    <!-- Cleanup -->
+
+    <extension-point name="clean-all" depends="clean" />
+
+    <target name="clean" description="Deletes the generated files">
+        <delete dir="${dest}" failonerror="false" />
+    </target>
+
+    <target name="clean-jar" description="Deletes the JAR file"
+            extensionOf="clean-all">
+        <delete file="${jar}" failonerror="false" />
+    </target>
+
+    <target name="clean-test" description="Deletes generated test files"
+            extensionOf="clean-all">
+        <delete dir="${test.bin}" failonerror="false" />
+        <delete failonerror="false" verbose="true">
+            <fileset dir="${basedir}" includes="TEST-*.txt" />
+        </delete>
+    </target>
+
+    <target name="clean-doc" description="Deletes generated JavaDoc."
+            extensionOf="clean-all">
+        <delete dir="${docdest}" failonerror="false" />
+    </target>
+
+
+    <!-- Generate javadoc -->
+
+    <target name="doc" depends="clean-doc, build"
+            description="Build all the Javadoc API documentation">
+        <mkdir dir="${docdest}" />
+        <javadoc sourcepath="${src}" destdir="${docdest}">
+            <classpath>
+                <fileset dir="${lib}" includes="*lang3*.jar" />
+            </classpath>
+            <link href="${java.api}" />
+            <link href="${junit.api}" />
+            <taglet name="javadoc6170.RequiresTaglet"
+                    path="${taglet.path}" />
+            <taglet name="javadoc6170.EffectsTaglet"
+                    path="${taglet.path}" />
+            <taglet name="javadoc6170.ModifiesTaglet"
+                    path="${taglet.path}" />
+            <taglet name="javadoc6170.ReturnsTaglet"
+                    path="${taglet.path}" />
+            <taglet name="javadoc6170.SpecfieldTaglet"
+                    path="${taglet.path}" />
+            <taglet name="javadoc6170.DerivedfieldTaglet"
+                    path="${taglet.path}" />
+        </javadoc>
+    </target>
+</project>
