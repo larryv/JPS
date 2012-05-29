@@ -54,7 +54,7 @@
                     <javac-classpath />
                 </classpath>
             </javac>
-            <junit fork="yes" printsummary="true">
+            <junit fork="true" printsummary="true">
                 <classpath>
                     <junit-classpath />
                 </classpath>
@@ -64,7 +64,7 @@
         </sequential>
     </macrodef>
 
-    <extension-point name="test-all" depends="test" />
+    <target name="test-all" depends="test, test-jar" />
 
     <target name="test" depends="build">
         <run-tests>
@@ -80,7 +80,7 @@
         </run-tests>
     </target>
 
-    <target name="test-jar" depends="jar" extensionOf="test-all">
+    <target name="test-jar" depends="jar">
         <run-tests>
             <javac-classpath>
                 <fileset file="${jar}" />
@@ -97,27 +97,25 @@
 
     <!-- Cleanup -->
 
-    <extension-point name="clean-all" depends="clean" />
+    <target name="clean-all"
+            depends="clean, clean-jar, clean-test, clean-doc" />
 
     <target name="clean" description="Deletes the generated files">
         <delete dir="${dest}" failonerror="false" />
     </target>
 
-    <target name="clean-jar" description="Deletes the JAR file"
-            extensionOf="clean-all">
+    <target name="clean-jar" description="Deletes the JAR file">
         <delete file="${jar}" failonerror="false" />
     </target>
 
-    <target name="clean-test" description="Deletes generated test files"
-            extensionOf="clean-all">
+    <target name="clean-test" description="Deletes generated test files">
         <delete dir="${test.bin}" failonerror="false" />
         <delete failonerror="false" verbose="true">
             <fileset dir="${basedir}" includes="TEST-*.txt" />
         </delete>
     </target>
 
-    <target name="clean-doc" description="Deletes generated JavaDoc."
-            extensionOf="clean-all">
+    <target name="clean-doc" description="Deletes generated JavaDoc.">
         <delete dir="${docdest}" failonerror="false" />
     </target>
 
