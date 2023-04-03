@@ -1,2 +1,7 @@
 # Normalize line endings in text files.
 * text=auto
+
+# Override GitHub's language detection.
+# https://github.com/github/linguist/blob/c1c34e5/docs/overrides.md
+/assignment.html linguist-documentation
+/main.css linguist-documentation
