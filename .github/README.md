@@ -16,13 +16,13 @@ as PostScript.
 
 ### Building ###
 
-The buildfile requires [Apache Ant][] 1.6 or later, plus the JUnit
+The buildfile requires [Apache Ant][ANT] 1.6 or later, plus the JUnit
 Ant task if you want to run the unit tests.  (Some package managers
 provide optional Ant tasks separately from core Ant.)  The library
-itself requires [Java][]&nbsp;5 or later.
+itself requires [Java][JAVAPLAT]&nbsp;5 or later.
 
-  [Apache Ant]: http://ant.apache.org/
-  [Java]: http://www.java.com/
+  [ANT]: http://ant.apache.org/
+  [JAVAPLAT]: http://www.java.com/
 
 -   To build: `ant build`
 -   To package: `ant jar` (This is the default.)
@@ -67,19 +67,19 @@ further usage examples, poke around the test suite in
 
 ## Who?  Why? ##
 
-[Nina Guo][] and I wrote this in 2008 as an assignment for
-[6.005][], an undergraduate software construction class at
-[MIT][].  The code is largely unchanged from then; I’ve made some
+[Nina Guo][GUO] and I wrote this in 2008 as an assignment for
+[6.005][6.005], an undergraduate software construction class at
+[MIT][MIT].  The code is largely unchanged from then; I’ve made some
 cosmetic changes, revised the paltry Javadoc (which is still paltry),
 and shuffled the package layout.  For better or worse, it retains the
-original architecture.  Yay, [visitor pattern][]!
+original architecture.  Yay, [visitor pattern][VISITOR]!
 
-  [Nina Guo]: http://www.linkedin.com/in/ninaguo
+  [GUO]: http://www.linkedin.com/in/ninaguo
     "Nina Guo on LinkedIn"
   [6.005]: http://stellar.mit.edu/S/course/6/sp08/6.005/
     "6.005 Spring 2008"
   [MIT]: http://web.mit.edu/
-  [visitor pattern]: http://en.wikipedia.org/wiki/Visitor_pattern
+  [VISITOR]: http://en.wikipedia.org/wiki/Visitor_pattern
     "'Visitor pattern' on Wikipedia"
 
 The aptly-named `assignment.html` contains the original
