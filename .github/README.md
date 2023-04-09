@@ -74,10 +74,10 @@ cosmetic changes, revised the paltry Javadoc (which is still paltry),
 and shuffled the package layout.  For better or worse, it retains the
 original architecture.  Yay, [visitor pattern][VISITOR]!
 
-  [GUO]: https://www.linkedin.com/in/ninaguo "Nina Guo on LinkedIn"
+  [GUO]: https://www.linkedin.com/in/ninaguo "Nina Guo - LinkedIn"
   [6.005]: https://stellar.mit.edu/S/course/6/sp08/6.005/ "6.005 Spring 2008"
   [MIT]: https://web.mit.edu/
-  [VISITOR]: https://en.wikipedia.org/wiki/Visitor_pattern "'Visitor pattern' on Wikipedia"
+  [VISITOR]: https://en.wikipedia.org/wiki/Visitor_pattern "Visitor pattern - English Wikipedia"
 
 The aptly-named `assignment.html` contains the original
 description of the assignment, including the problem statement,
