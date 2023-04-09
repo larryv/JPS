@@ -55,12 +55,10 @@ your classpath correctly.  To generate shapes in PostScript, build
 objects using the `jps.draw` classes and pass them to the static methods
 inside `jps.JPS`.
 
-```java
-import jps.JPS;
-import jps.draw.Circle;
+    import jps.JPS;
+    import jps.draw.Circle;
 
-String ps = JPS.toPSString(400.0, 400.0, new Circle(50.0));
-```
+    String ps = JPS.toPSString(400.0, 400.0, new Circle(50.0));
 
 Currently, only the `jps.JPS` methods have Javadoc.  For a short
 description of the available shape classes, see `assignment.html` in the
@@ -79,12 +77,9 @@ layout.  For better or worse, it retains the original architecture.
 Yay, [visitor pattern][]!
 
   [Nina Guo]: http://www.linkedin.com/in/ninaguo
-    "Nina Guo on LinkedIn"
   [6.005]: http://stellar.mit.edu/S/course/6/sp08/6.005/
-    "6.005 Spring 2008"
   [MIT]: http://web.mit.edu/
   [visitor pattern]: http://en.wikipedia.org/wiki/Visitor_pattern
-    "'Visitor pattern' on Wikipedia"
 
 The aptly-named `assignment.html` contains the original description of
 the assignment, including the problem statement, pedagogical goals, and
