@@ -1,9 +1,9 @@
-
 JPS: A Java-to-PostScript Translator
 ====================================
 
 This is from my sophomore year of college, so you probably shouldn’t use
-it for anything important. Or for anything at all.
+it for anything important.  Or for anything at all.
+
 
 What?
 -----
@@ -11,6 +11,7 @@ What?
 JPS is a simple drawing library that provides a high-level method of
 describing simple shapes (and combinations thereof) using Java
 objects, as well as an API for outputting these shapes as PostScript.
+
 
 How?
 ----
@@ -43,6 +44,7 @@ you’re into that sort of debauchery).
   - SUSE Linux Enterprise Server 11, using Java SE 6 (IBM J9 VM)
   - Too lazy to spin up any more VMs.  You get the idea.
 
+
 ### Using ###
 
 For the sake of argument, let’s assume that you actually manage to set
@@ -62,15 +64,16 @@ description of the available shape classes, see `assignment.html` in the
 project’s root directory.  For further usage examples, poke around the
 test suite in `test_src/jpstests/JPSTests.java`.
 
-Who? Why?
----------
+
+Who?  Why?
+----------
 
 [Nina Guo][] and I wrote this in 2008 as an assignment for [6.005][], an
 undergraduate software construction class at [MIT][].  The code is
 largely unchanged from then; I’ve made some cosmetic changes, revised
 the paltry Javadoc (which is still paltry), and shuffled the package
-layout.  For better or worse, it retains the original architecture. Yay,
-[visitor pattern][]!
+layout.  For better or worse, it retains the original architecture.
+Yay, [visitor pattern][]!
 
   [Nina Guo]: http://www.linkedin.com/in/ninaguo
     "Nina Guo on LinkedIn"
@@ -83,4 +86,3 @@ layout.  For better or worse, it retains the original architecture. Yay,
 The aptly-named `assignment.html` contains the original description of
 the assignment, including the problem statement, pedagogical goals, and
 specification.
-
