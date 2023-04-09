@@ -1,4 +1,5 @@
-JPS: A Java-to-PostScript Translator
+====================================
+JPS: A JAVA-TO-POSTSCRIPT TRANSLATOR
 ====================================
 
 This is from my sophomore year of college, so you probably shouldn’t use
@@ -6,7 +7,7 @@ it for anything important.  Or for anything at all.
 
 
 What?
------
+=====
 
 JPS is a simple drawing library that provides a high-level method of
 describing simple shapes (and combinations thereof) using Java
@@ -14,9 +15,10 @@ objects, as well as an API for outputting these shapes as PostScript.
 
 
 How?
-----
+====
 
-### Building ###
+Building
+--------
 
 The buildfile requires [Apache Ant][] 1.6 or later, plus the JUnit Ant
 task if you want to run the unit tests.  (Some package managers provide
@@ -45,7 +47,8 @@ you’re into that sort of debauchery).
   - Too lazy to spin up any more VMs.  You get the idea.
 
 
-### Using ###
+Using
+-----
 
 For the sake of argument, let’s assume that you actually manage to set
 your classpath correctly.  To generate shapes in PostScript, build
@@ -66,7 +69,7 @@ test suite in `test_src/jpstests/JPSTests.java`.
 
 
 Who?  Why?
-----------
+==========
 
 [Nina Guo][] and I wrote this in 2008 as an assignment for [6.005][], an
 undergraduate software construction class at [MIT][].  The code is

@@ -1,12 +1,10 @@
-JPS: A Java-to-PostScript Translator
-====================================
+# JPS: A Java-to-PostScript Translator #
 
 This is from my sophomore year of college, so you probably shouldn’t use
 it for anything important.  Or for anything at all.
 
 
-What?
------
+## What? ##
 
 JPS is a simple drawing library that provides a high-level method of
 describing simple shapes (and combinations thereof) using
@@ -14,8 +12,7 @@ Java objects, as well as an API for outputting these shapes
 as PostScript.
 
 
-How?
-----
+## How? ##
 
 ### Building ###
 
@@ -68,8 +65,7 @@ further usage examples, poke around the test suite in
 `test_src/jpstests/JPSTests.java`.
 
 
-Who?  Why?
-----------
+## Who?  Why? ##
 
 [Nina Guo][] and I wrote this in 2008 as an assignment for
 [6.005][], an undergraduate software construction class at
