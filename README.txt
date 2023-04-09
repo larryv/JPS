@@ -81,9 +81,9 @@ specification.
 References
 ==========
 
- 3. http://ant.apache.org/
- 4. http://www.java.com/
- 5. http://www.linkedin.com/in/ninaguo
- 6. http://stellar.mit.edu/S/course/6/sp08/6.005/
- 7. http://web.mit.edu/
- 8. http://en.wikipedia.org/wiki/Visitor_pattern
+ 3. https://ant.apache.org/
+ 4. https://www.java.com/
+ 5. https://www.linkedin.com/in/ninaguo
+ 6. https://stellar.mit.edu/S/course/6/sp08/6.005/
+ 7. https://web.mit.edu/
+ 8. https://en.wikipedia.org/wiki/Visitor_pattern
