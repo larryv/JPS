@@ -20,13 +20,10 @@ How?
 Building
 --------
 
-The buildfile requires [Apache Ant][] 1.6 or later, plus the JUnit Ant
+The buildfile requires Apache Ant 1.6 [3] or later, plus the JUnit Ant
 task if you want to run the unit tests.  (Some package managers provide
 optional Ant tasks separately from core Ant.)  The library itself
-requires [Java][] 5 or later.
-
-  [Apache Ant]: http://ant.apache.org/
-  [Java]: http://www.java.com/
+requires Java 5 [4] or later.
 
   - To build: `ant build`
   - To package: `ant jar` (This is the default.)
@@ -69,18 +66,24 @@ test suite in `test_src/jpstests/JPSTests.java`.
 Who?  Why?
 ==========
 
-[Nina Guo][] and I wrote this in 2008 as an assignment for [6.005][], an
-undergraduate software construction class at [MIT][].  The code is
+Nina Guo [5] and I wrote this in 2008 as an assignment for 6.005 [6], an
+undergraduate software construction class at MIT [7].  The code is
 largely unchanged from then; I’ve made some cosmetic changes, revised
 the paltry Javadoc (which is still paltry), and shuffled the package
 layout.  For better or worse, it retains the original architecture.
-Yay, [visitor pattern][]!
-
-  [Nina Guo]: http://www.linkedin.com/in/ninaguo
-  [6.005]: http://stellar.mit.edu/S/course/6/sp08/6.005/
-  [MIT]: http://web.mit.edu/
-  [visitor pattern]: http://en.wikipedia.org/wiki/Visitor_pattern
+Yay, visitor pattern [8]!
 
 The aptly-named `assignment.html` contains the original description of
 the assignment, including the problem statement, pedagogical goals, and
 specification.
+
+
+References
+==========
+
+ 3. http://ant.apache.org/
+ 4. http://www.java.com/
+ 5. http://www.linkedin.com/in/ninaguo
+ 6. http://stellar.mit.edu/S/course/6/sp08/6.005/
+ 7. http://web.mit.edu/
+ 8. http://en.wikipedia.org/wiki/Visitor_pattern
