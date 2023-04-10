@@ -10,8 +10,8 @@ What?
 =====
 
 JPS is a simple drawing library that provides a high-level method of
-describing simple shapes (and combinations thereof) using Java
-objects, as well as an API for outputting these shapes as PostScript.
+describing simple shapes (and combinations thereof) using Java [1]
+objects, as well as an API for outputting these shapes as PostScript [2].
 
 
 How?
@@ -81,6 +81,8 @@ specification.
 References
 ==========
 
+ 1. https://en.wikipedia.org/wiki/Java_(programming_language)
+ 2. https://en.wikipedia.org/wiki/PostScript
  3. https://ant.apache.org/
  4. https://www.java.com/
  5. https://www.linkedin.com/in/ninaguo

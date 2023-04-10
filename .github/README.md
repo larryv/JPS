@@ -8,8 +8,11 @@ it for anything important.  Or for anything at all.
 
 JPS is a simple drawing library that provides a high-level method of
 describing simple shapes (and combinations thereof) using
-Java objects, as well as an API for outputting these shapes
-as PostScript.
+[Java][JAVALANG] objects, as well as an API for outputting these shapes
+as [PostScript][PS].
+
+  [JAVALANG]: https://en.wikipedia.org/wiki/Java_(programming_language) "Java (programming language) - English Wikipedia"
+  [PS]: https://en.wikipedia.org/wiki/PostScript "PostScript - English Wikipedia"
 
 
 ## How? ##
@@ -60,9 +63,12 @@ String ps = JPS.toPSString(400.0, 400.0, new Circle(50.0));
 
 Currently, only the `jps.JPS` methods have Javadoc.  For a short
 description of the available shape classes, see
-`assignment.html` in the project's root directory.  For
+[`assignment.html`][ASSIGNMENT] in the project's root directory.  For
 further usage examples, poke around the test suite in
-`test_src/jpstests/JPSTests.java`.
+[`test_src/jpstests/JPSTests.java`][TESTS].
+
+  [ASSIGNMENT]: ../assignment.html
+  [TESTS]: ../test_src/jpstests/JPSTests.java
 
 
 ## Who?  Why? ##
@@ -79,6 +85,6 @@ original architecture.  Yay, [visitor pattern][VISITOR]!
   [MIT]: https://web.mit.edu/
   [VISITOR]: https://en.wikipedia.org/wiki/Visitor_pattern "Visitor pattern - English Wikipedia"
 
-The aptly-named `assignment.html` contains the original
+The aptly-named [`assignment.html`][ASSIGNMENT] contains the original
 description of the assignment, including the problem statement,
 pedagogical goals, and specification.
