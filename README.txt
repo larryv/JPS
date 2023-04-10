@@ -9,8 +9,8 @@ What?
 -----
 
 JPS is a simple drawing library that provides a high-level method of
-describing simple shapes (and combinations thereof) using Java objects,
-as well as an API for outputting these shapes as PostScript.
+describing simple shapes (and combinations thereof) using Java
+objects, as well as an API for outputting these shapes as PostScript.
 
 How?
 ----
@@ -34,8 +34,8 @@ requires [Java][] 5 or later.
 
 The library has been successfully built and tested in the following
 environments.  Your mileage may vary, *caveat emptor*, etc., but all you
-really need is some form of `javac` and `java` (and `javadoc`, if you’re
-into that sort of debauchery).
+really need is some form of `javac` and `java` (and `javadoc`, if
+you’re into that sort of debauchery).
 
   - Mac OS X 10.7, using Java SE 6
   - Ubuntu Server 12.04 LTS, using OpenJDK 6
