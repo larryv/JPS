@@ -2,7 +2,7 @@
 JPS: A JAVA-TO-POSTSCRIPT TRANSLATOR
 ====================================
 
-This is from my sophomore year of college, so you probably shouldn’t use
+This is from my sophomore year of college, so you probably shouldn't use
 it for anything important.  Or for anything at all.
 
 
@@ -35,7 +35,7 @@ requires Java 5 [4] or later.
 The library has been successfully built and tested in the following
 environments.  Your mileage may vary, caveat emptor, etc., but all you
 really need is some form of javac and java (and javadoc, if
-you’re into that sort of debauchery).
+you're into that sort of debauchery).
 
   - Mac OS X 10.7, using Java SE 6
   - Ubuntu Server 12.04 LTS, using OpenJDK 6
@@ -47,7 +47,7 @@ you’re into that sort of debauchery).
 Using
 -----
 
-For the sake of argument, let’s assume that you actually manage to set
+For the sake of argument, let's assume that you actually manage to set
 your classpath correctly.  To generate shapes in PostScript, build
 objects using the jps.draw classes and pass them to the static methods
 inside jps.JPS.
@@ -59,7 +59,7 @@ inside jps.JPS.
 
 Currently, only the jps.JPS methods have Javadoc.  For a short
 description of the available shape classes, see assignment.html in the
-project’s root directory.  For further usage examples, poke around the
+project's root directory.  For further usage examples, poke around the
 test suite in test_src/jpstests/JPSTests.java.
 
 
@@ -68,7 +68,7 @@ Who?  Why?
 
 Nina Guo [5] and I wrote this in 2008 as an assignment for 6.005 [6], an
 undergraduate software construction class at MIT [7].  The code is
-largely unchanged from then; I’ve made some cosmetic changes, revised
+largely unchanged from then; I've made some cosmetic changes, revised
 the paltry Javadoc (which is still paltry), and shuffled the package
 layout.  For better or worse, it retains the original architecture.
 Yay, visitor pattern [8]!
