@@ -34,7 +34,7 @@ requires Java 5 [4] or later.
 
 The library has been successfully built and tested in the following
 environments.  Your mileage may vary, caveat emptor, etc., but all you
-really need is some form of javac and java (and javadoc, if
+really need is some form of javac(1) and java(1) (and javadoc(1), if
 you're into that sort of debauchery).
 
   - Mac OS X 10.7, using Java SE 6
