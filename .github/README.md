@@ -1,7 +1,8 @@
 # JPS: A Java-to-PostScript Translator #
 
-This is from my sophomore year of college, so you probably shouldn't use
-it for anything important.  Or for anything at all.
+This is unmaintained code from my sophomore year of college, so you
+probably shouldn't use it for anything important.  Or for anything at
+all.
 
 
 ## What? ##
